@@ -2,10 +2,7 @@ package ifri.dev.musicstreamingbackend.models;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -26,4 +23,6 @@ public class Artist {
     private String bio;
     private String profilePic;
     private Integer followersCount;
+    @OneToMany
+    private List<Album> albums;
 }
