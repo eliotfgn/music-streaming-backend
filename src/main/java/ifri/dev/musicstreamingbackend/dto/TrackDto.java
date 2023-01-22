@@ -1,34 +1,33 @@
-package ifri.dev.musicstreamingbackend.models;
+package ifri.dev.musicstreamingbackend.dto;
 
-import lombok.*;
+import ifri.dev.musicstreamingbackend.dto.TagDto;
+import ifri.dev.musicstreamingbackend.models.Track;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.List;
 
-@Entity
+/**
+ * A DTO for the {@link Track} entity
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
-public class Track {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TrackDto implements Serializable {
     private Long id;
     @NotBlank(message = "Track name is required")
     private String title;
-    @NotEmpty(message = "Track should have at least one artist")
-    @OneToMany
-    private List<Artist> artists;
     @NotNull(message = "Track should have a duration")
     private Integer duration;
     @NotBlank(message = "Track should have an audio data")
     private String audio;
-    @OneToMany
-    private List<Tag> tags;
+    private List<TagDto> tags;
     private String cover;
     private Integer likesCount;
 }
