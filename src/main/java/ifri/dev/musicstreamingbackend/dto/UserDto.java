@@ -1,6 +1,7 @@
 package ifri.dev.musicstreamingbackend.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +16,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class UserDto implements Serializable {
     private Long id;
     @NotBlank(message = "Email is required")
