@@ -12,7 +12,11 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
-@Table(name = "_users")
+@Table(name = "_users",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "email"),
+                @UniqueConstraint(columnNames = "username")
+        })
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
