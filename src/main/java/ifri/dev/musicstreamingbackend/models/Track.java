@@ -26,7 +26,7 @@ public class Track {
     @NotNull(message = "Track should have a duration")
     private Integer duration;
     @NotNull(message = "Track should have an audio data")
-    private byte[] audio;
+    private String audio;
     @OneToMany
     private List<Tag> tags;
     private String cover;
