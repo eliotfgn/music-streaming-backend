@@ -1,7 +1,7 @@
 package ifri.dev.musicstreamingbackend.exceptions;
 
 public class UserNotFoundException extends RuntimeException{
-    UserNotFoundException(String message) {
+    public UserNotFoundException(String message) {
         super(message);
     }
 }

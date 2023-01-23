@@ -20,7 +20,6 @@ public class UserMapper {
                 .id(userDto.getId())
                 .username(userDto.getUsername())
                 .email(userDto.getEmail())
-                .password(userDto.getPassword())
                 .firstname(userDto.getFirstname())
                 .lastname(userDto.getLastname())
                 .profilePic(userDto.getProfilePic())
