@@ -1,6 +1,7 @@
 package ifri.dev.musicstreamingbackend.services;
 
 import ifri.dev.musicstreamingbackend.dto.UserDto;
+import ifri.dev.musicstreamingbackend.dto.UserRequest;
 import ifri.dev.musicstreamingbackend.exceptions.UserNotFoundException;
 import ifri.dev.musicstreamingbackend.mappers.UserMapper;
 import ifri.dev.musicstreamingbackend.models.User;
@@ -20,7 +21,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public boolean create(UserDto dto) {
+    public boolean create(UserRequest dto) {
         User user = UserMapper.mapToEntity(dto);
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         userRepository.save(user);
@@ -33,6 +34,11 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("User with id "+ id + " not found"));
 
         return UserMapper.mapToDto(user);
+    }
+
+    public User findEntityById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User with id "+ id + " not found"));
     }
 
     public UserDto findByEmail(String email) {
@@ -49,8 +55,8 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public void update(Long id, UserDto dto) {
-        User user = UserMapper.mapToEntity(findById(id));
+    public void update(Long id, UserRequest dto) {
+        User user = findEntityById(id);
         user.setEmail(dto.getEmail());
         user.setUsername(dto.getUsername());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
