@@ -26,7 +26,8 @@ public class TrackService {
         Track entity = TrackMapper.mapToEntity(payload);
         if (payload.getTags().isEmpty())
             entity.setTags(new HashSet<>());
-        entity.setTags(payload.getTags().stream().map(tagService::create).collect(Collectors.toSet()));
+        else
+            entity.setTags(payload.getTags().stream().map(tagService::create).collect(Collectors.toSet()));
 
         trackRepository.save(entity);
     }

@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -32,6 +33,6 @@ public class Album {
     private Integer likesCount;
     private LocalDate releaseDate;
     @OneToMany
-    private List<Tag> tags;
+    private Set<Tag> tags;
     private AlbumType type;
 }
