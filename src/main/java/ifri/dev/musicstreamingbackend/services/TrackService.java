@@ -43,7 +43,7 @@ public class TrackService {
                 .orElseThrow(() -> new RessourceNotFoundException("Track with id "+" not found!"));
     }
 
-    public List<TrackDto> getAll(Long id) {
+    public List<TrackDto> getAll() {
         return trackRepository.findAll()
                 .stream()
                 .map(TrackMapper::mapToDto)
