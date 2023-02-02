@@ -1,7 +1,8 @@
-package ifri.dev.musicstreamingbackend.models;
+package ifri.dev.musicstreamingbackend.dto;
 
 import ifri.dev.musicstreamingbackend.dto.TrackDto;
 import ifri.dev.musicstreamingbackend.dto.UserDto;
+import ifri.dev.musicstreamingbackend.models.Playlist;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
