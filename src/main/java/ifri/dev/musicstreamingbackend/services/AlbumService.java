@@ -4,6 +4,7 @@ import ifri.dev.musicstreamingbackend.dto.AlbumDto;
 import ifri.dev.musicstreamingbackend.exceptions.RessourceNotFoundException;
 import ifri.dev.musicstreamingbackend.mappers.AlbumMapper;
 import ifri.dev.musicstreamingbackend.models.Album;
+import ifri.dev.musicstreamingbackend.models.Track;
 import ifri.dev.musicstreamingbackend.repositories.AlbumRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 public class AlbumService {
     private AlbumRepository albumRepository;
     private TagService tagService;
+    private TrackService trackService;
 
     public void create(AlbumDto payload) {
         Album album = AlbumMapper.mapToEntity(payload);
@@ -40,6 +42,13 @@ public class AlbumService {
                 .stream()
                 .map(AlbumMapper::mapToDto)
                 .collect(Collectors.toList());
+    }
+
+    public void addTrack(Long id, Long trackId) {
+        Album album = AlbumMapper.mapToEntity(getById(id));
+        Track track = trackService.getTrackEntity(trackId);
+        album.getTracks().add(track);
+        albumRepository.save(album);
     }
 
     public void delete(Long id) {
