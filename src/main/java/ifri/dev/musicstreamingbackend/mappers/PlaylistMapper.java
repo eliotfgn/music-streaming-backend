@@ -3,16 +3,18 @@ package ifri.dev.musicstreamingbackend.mappers;
 import ifri.dev.musicstreamingbackend.models.Playlist;
 import ifri.dev.musicstreamingbackend.dto.PlaylistDto;
 import ifri.dev.musicstreamingbackend.services.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
-@Component
+@Service
+@AllArgsConstructor
 public class PlaylistMapper {
-    @Autowired
-    private static UserService userService;
-    public static Playlist mapToEntity(PlaylistDto dto) {
+    private UserService userService;
+    public Playlist mapToEntity(PlaylistDto dto) {
         return Playlist.builder()
                 .id(dto.id())
                 .name(dto.name())
@@ -20,14 +22,14 @@ public class PlaylistMapper {
                 .cover(dto.cover())
                 .likesCount(dto.likesCount())
                 .isPrivate(dto.isPrivate())
-                .user(userService.findEntityById(dto.id()))
+                .user(userService.findEntityById(dto.userId()))
                 .createdAt(dto.createdAt())
                 .tracks(dto.tracks().stream().map(TrackMapper::mapToEntity).collect(Collectors.toList()))
                 .updateAt(dto.updateAt())
                 .build();
     }
 
-    public static PlaylistDto mapToDto(Playlist entity) {
+    public PlaylistDto mapToDto(Playlist entity) {
         return new PlaylistDto(
                 entity.getId(),
                 entity.getName(),
@@ -35,7 +37,7 @@ public class PlaylistMapper {
                 entity.getCover(),
                 entity.getLikesCount(),
                 entity.getIsPrivate(),
-                UserMapper.mapToDto(entity.getUser()),
+                entity.getId(),
                 entity.getTracks().stream().map(TrackMapper::mapToDto).collect(Collectors.toList()),
                 entity.getCreatedAt(),
                 entity.getUpdateAt()

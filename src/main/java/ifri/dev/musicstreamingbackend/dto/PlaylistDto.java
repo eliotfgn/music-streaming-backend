@@ -18,7 +18,7 @@ public record PlaylistDto(Long id,
                           String cover,
                           Integer likesCount,
                           Boolean isPrivate,
-                          UserDto user,
+                          Long userId,
                           List<TrackDto> tracks,
                           LocalDate createdAt,
                           LocalDate updateAt) implements Serializable {

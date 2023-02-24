@@ -20,10 +20,11 @@ import java.util.stream.Collectors;
 public class PlaylistService {
     private PlaylistRepository playlistRepository;
     private TrackService trackService;
+    private PlaylistMapper playlistMapper;
 
     public void create(PlaylistDto payload) {
         LocalDate currentDate = LocalDate.now();
-        Playlist playlist = PlaylistMapper.mapToEntity(payload);
+        Playlist playlist = playlistMapper.mapToEntity(payload);
         playlist.setCreatedAt(currentDate);
         playlist.setUpdateAt(currentDate);
         playlist.setTracks(new ArrayList<>());
@@ -34,7 +35,7 @@ public class PlaylistService {
 
     public PlaylistDto findById(Long id) {
         Playlist playlist = findEntityById(id);
-        return PlaylistMapper.mapToDto(playlist);
+        return playlistMapper.mapToDto(playlist);
     }
 
     public Playlist findEntityById(Long id) {
@@ -44,7 +45,7 @@ public class PlaylistService {
 
     public List<PlaylistDto> findAll() {
         return playlistRepository.findAll()
-                .stream().map(PlaylistMapper::mapToDto)
+                .stream().map(playlistMapper::mapToDto)
                 .collect(Collectors.toList());
     }
 
@@ -61,6 +62,8 @@ public class PlaylistService {
         playlist.setCover(payload.cover());
         playlist.setDescription(payload.description());
         playlist.setName(payload.name());
+
+        playlistRepository.save(playlist);
     }
 
     public void delete(Long id) {
