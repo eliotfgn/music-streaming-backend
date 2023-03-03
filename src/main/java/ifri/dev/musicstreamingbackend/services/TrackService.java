@@ -36,6 +36,8 @@ public class TrackService {
                         .map((artistId) -> artistService.getArtistEntity(artistId))
                         .collect(Collectors.toList()));
 
+        entity.setLikesCount(0);
+
         trackRepository.save(entity);
     }
 
@@ -74,5 +76,17 @@ public class TrackService {
             track.getTags().add(newTag);
         });
         trackRepository.save(track);
+    }
+
+    public void update(Long id, TrackDto payload) {
+        Track entity = getTrackEntity(id);
+        entity.setTitle(payload.getTitle());
+        entity.setArtists(payload.getArtists().stream().map(artistService::getArtistEntity).collect(Collectors.toList()));
+        entity.setTags(payload.getTags().stream().map(tagService::create).collect(Collectors.toSet()));
+        trackRepository.save(entity);
+        entity.setCover(payload.getCover());
+        entity.setLikesCount(payload.getLikesCount());
+
+        trackRepository.save(entity);
     }
 }

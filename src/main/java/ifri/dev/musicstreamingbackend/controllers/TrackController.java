@@ -38,4 +38,10 @@ public class TrackController {
         trackService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity update(@PathVariable Long id, @Valid @RequestBody TrackDto payload) {
+        trackService.update(id, payload);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }
