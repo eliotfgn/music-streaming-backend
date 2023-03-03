@@ -48,6 +48,12 @@ public class ArtistService {
                 .collect(Collectors.toList());
     }
 
+    public void setProfilePic(Long id, String profile) {
+        Artist artist = ArtistMapper.mapToEntity(getArtist(id));
+        artist.setProfilePic(profile);
+        artistRepository.save(artist);
+    }
+
     public void delete(Long id) {
         artistRepository.deleteById(id);
     }

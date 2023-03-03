@@ -43,6 +43,12 @@ public class TrackService {
                 .orElseThrow(() -> new RessourceNotFoundException("Track with id "+" not found!"));
     }
 
+    public void setCover(Long id, String cover) {
+        Track entity = getTrackEntity(id);
+        entity.setCover(cover);
+        trackRepository.save(entity);
+    }
+
     public List<TrackDto> getAll() {
         return trackRepository.findAll()
                 .stream()

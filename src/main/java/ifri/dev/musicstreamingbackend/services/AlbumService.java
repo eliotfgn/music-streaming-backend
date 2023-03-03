@@ -51,6 +51,12 @@ public class AlbumService {
         albumRepository.save(album);
     }
 
+    public void setCover(Long id, String cover) {
+        Album album = AlbumMapper.mapToEntity(getById(id));
+        album.setCover(cover);
+        albumRepository.save(album);
+    }
+
     public void delete(Long id) {
         albumRepository.deleteById(id);
     }

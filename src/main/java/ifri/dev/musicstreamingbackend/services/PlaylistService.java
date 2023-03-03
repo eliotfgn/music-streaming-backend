@@ -49,6 +49,12 @@ public class PlaylistService {
                 .collect(Collectors.toList());
     }
 
+    public void setCover(Long id, String cover) {
+        Playlist playlist = findEntityById(id);
+        playlist.setCover(cover);
+        playlistRepository.save(playlist);
+    }
+
     public void addTrack(Long playlistId, Long trackId) {
         Playlist playlist = findEntityById(playlistId);
         Track track = trackService.getTrackEntity(trackId);
