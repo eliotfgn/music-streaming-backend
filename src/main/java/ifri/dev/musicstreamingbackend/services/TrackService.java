@@ -2,6 +2,7 @@ package ifri.dev.musicstreamingbackend.services;
 
 import ifri.dev.musicstreamingbackend.dto.TrackDto;
 import ifri.dev.musicstreamingbackend.exceptions.RessourceNotFoundException;
+import ifri.dev.musicstreamingbackend.mappers.ArtistMapper;
 import ifri.dev.musicstreamingbackend.mappers.TrackMapper;
 import ifri.dev.musicstreamingbackend.models.Tag;
 import ifri.dev.musicstreamingbackend.models.Track;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 public class TrackService {
     private TrackRepository trackRepository;
     private TagService tagService;
+    private ArtistService artistService;
 
     public void create(TrackDto payload) {
         Track entity = TrackMapper.mapToEntity(payload);
@@ -28,6 +30,11 @@ public class TrackService {
             entity.setTags(new HashSet<>());
         else
             entity.setTags(payload.getTags().stream().map(tagService::create).collect(Collectors.toSet()));
+        entity.setArtists(
+                payload.getArtists()
+                        .stream()
+                        .map((artistId) -> artistService.getArtistEntity(artistId))
+                        .collect(Collectors.toList()));
 
         trackRepository.save(entity);
     }

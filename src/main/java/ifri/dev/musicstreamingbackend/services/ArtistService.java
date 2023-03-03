@@ -34,6 +34,11 @@ public class ArtistService {
         return ArtistMapper.mapToDto(artist);
     }
 
+    public Artist getArtistEntity(Long id) {
+        return artistRepository.findById(id)
+                .orElseThrow(() -> new RessourceNotFoundException("Artist with id "+id+" has not be found."));
+    }
+
     public List<ArtistDto> findAll() {
         return artistRepository.findAll()
                 .stream()

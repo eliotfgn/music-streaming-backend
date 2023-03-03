@@ -3,6 +3,7 @@ package ifri.dev.musicstreamingbackend.mappers;
 import ifri.dev.musicstreamingbackend.dto.TrackDto;
 import ifri.dev.musicstreamingbackend.models.Tag;
 import ifri.dev.musicstreamingbackend.models.Track;
+import ifri.dev.musicstreamingbackend.services.ArtistService;
 
 import java.util.stream.Collectors;
 
@@ -16,7 +17,7 @@ public class TrackMapper {
                 .audio(track.getAudio())
                 .likesCount(track.getLikesCount())
                 .duration(track.getDuration())
-                .artists(track.getArtists().stream().map(ArtistMapper::mapToDto).collect(Collectors.toList()))
+                .artists(track.getArtists().stream().map(artist -> artist.getId()).collect(Collectors.toList()))
                 .build();
     }
 
@@ -28,7 +29,6 @@ public class TrackMapper {
                 .audio(track.getAudio())
                 .likesCount(track.getLikesCount())
                 .duration(track.getDuration())
-                .artists(track.getArtists().stream().map(ArtistMapper::mapToEntity).collect(Collectors.toList()))
                 .build();
 
     }

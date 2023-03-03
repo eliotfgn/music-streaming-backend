@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 public class Artist {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
     @NotNull(message = "Artist should have a name")
     @NotEmpty(message = "Artist name should not be empty")
