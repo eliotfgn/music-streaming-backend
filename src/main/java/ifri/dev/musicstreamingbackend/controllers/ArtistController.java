@@ -32,7 +32,7 @@ public class ArtistController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid ArtistDto payload) {
-        //artistService.update(id, payload);
+        artistService.update(id, payload);
         return ResponseEntity.ok("Artist updated successfully");
     }
 

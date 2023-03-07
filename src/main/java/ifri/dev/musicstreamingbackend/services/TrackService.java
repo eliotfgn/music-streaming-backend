@@ -16,6 +16,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Arrays.stream;
+
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -33,7 +35,7 @@ public class TrackService {
         entity.setArtists(
                 payload.getArtists()
                         .stream()
-                        .map((artistId) -> artistService.getArtistEntity(artistId))
+                        .map((artistId) -> artistService.getArtistEntity(artistId.getId()))
                         .collect(Collectors.toList()));
 
         entity.setLikesCount(0);
@@ -81,9 +83,13 @@ public class TrackService {
     public void update(Long id, TrackDto payload) {
         Track entity = getTrackEntity(id);
         entity.setTitle(payload.getTitle());
-        entity.setArtists(payload.getArtists().stream().map(artistService::getArtistEntity).collect(Collectors.toList()));
         entity.setTags(payload.getTags().stream().map(tagService::create).collect(Collectors.toSet()));
         trackRepository.save(entity);
+        entity.setArtists(
+                payload.getArtists()
+                        .stream()
+                        .map((artistId) -> artistService.getArtistEntity(artistId.getId()))
+                        .collect(Collectors.toList()));
         entity.setCover(payload.getCover());
         entity.setLikesCount(payload.getLikesCount());
 

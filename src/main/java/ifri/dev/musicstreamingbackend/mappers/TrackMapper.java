@@ -17,7 +17,7 @@ public class TrackMapper {
                 .audio(track.getAudio())
                 .likesCount(track.getLikesCount())
                 .duration(track.getDuration())
-                .artists(track.getArtists().stream().map(artist -> artist.getId()).collect(Collectors.toList()))
+                .artists(track.getArtists().stream().map(artist -> ArtistMapper.mapToDto(artist)).collect(Collectors.toList()))
                 .build();
     }
 

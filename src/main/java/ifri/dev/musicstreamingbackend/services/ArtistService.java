@@ -62,4 +62,14 @@ public class ArtistService {
     public void delete(Long id) {
         artistRepository.deleteById(id);
     }
+
+    public void update(Long id, ArtistDto payload) {
+        Artist entity = getArtistEntity(id);
+
+        entity.setName(payload.getName());
+        entity.setBio(payload.getBio());
+        entity.setProfilePic(payload.getProfilePic());
+
+        artistRepository.save(entity);
+    }
 }

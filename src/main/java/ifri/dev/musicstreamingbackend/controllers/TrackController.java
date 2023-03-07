@@ -44,4 +44,10 @@ public class TrackController {
         trackService.update(id, payload);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @PutMapping("/set/cover/{id}")
+    public ResponseEntity setCover(@PathVariable Long id, @RequestParam String cover) {
+        trackService.setCover(id, cover);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

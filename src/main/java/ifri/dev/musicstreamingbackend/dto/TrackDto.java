@@ -25,7 +25,7 @@ public class TrackDto implements Serializable {
     private Integer duration;
     @NotBlank(message = "Track should have an audio data")
     private String audio;
-    private List<Long> artists;
+    private List<ArtistDto> artists;
     private List<String> tags;
     private String cover;
     private Integer likesCount;
